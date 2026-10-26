@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ekspedisi Arkeologi Nusantara</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f4ece1;
+            background-image: url("https://www.transparenttextures.com/patterns/old-wall.png");
+            font-family: 'Lora', serif;
+            color: #3e2723;
+        }
+        h1, h2, h3, .title-font {
+            font-family: 'Playfair Display', serif;
+        }
+        .journal-container {
+            background-color: #fdfbf7;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05), inset 0 0 50px rgba(139, 69, 19, 0.05);
+            border: 1px solid #e0d4c3;
+        }
+        .btn-vintage {
+            background-color: #5d4037;
+            color: #f4ece1;
+            transition: all 0.3s ease;
+            border: 1px solid #3e2723;
+        }
+        .btn-vintage:hover {
+            background-color: #3e2723;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .option-btn {
+            background-color: transparent;
+            border: 1px solid #8d6e63;
+            color: #4e342e;
+            transition: all 0.2s;
+        }
+        .option-btn:hover:not(:disabled) {
+            background-color: #efebe4;
+            border-color: #5d4037;
+        }
+        .correct-ans {
+            background-color: #dcedc8 !important;
+            border-color: #33691e !important;
+            color: #1b5e20 !important;
+        }
+        .wrong-ans {
+            background-color: #ffcdd2 !important;
+            border-color: #b71c1c !important;
+            color: #b71c1c !important;
+        }
+        .vintage-photo {
+            filter: sepia(0.65) contrast(1.1) brightness(0.85) grayscale(0.2);
+            border: 6px solid #FDFBF7;
+            border-bottom: 24px solid #FDFBF7;
+            box-shadow: 3px 6px 15px rgba(44, 30, 22, 0.25);
+            transform: rotate(-1.5deg);
+            transition: transform 0.4s ease-out;
+            background-color: #FDFBF7;
+        }
+        .vintage-photo:hover {
+            transform: rotate(1deg) scale(1.03);
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <!-- LAYAR SAMPUL (LOGIN) -->
+    <div id="screen-cover" class="journal-container w-full max-w-2xl rounded-sm p-8 md:p-12 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-2 bg-yellow-700 opacity-20"></div>
+        <div class="text-center space-y-6">
+            <p class="text-sm tracking-widest uppercase text-yellow-800 font-bold">Jurnal Penelitian Vol. IX</p>
+            <h1 class="text-4xl md:text-5xl font-bold text-yellow-900 leading-tight">Ekspedisi Arkeologi Nusantara</h1>
+            <div class="w-24 h-1 bg-yellow-800 mx-auto opacity-50 my-6"></div>
+            <p class="text-lg text-gray-700 italic">"Tahun 2026. Kamu ditugaskan bergabung dengan tim arkeologi nasional untuk meneliti situs warisan dunia di sepanjang aliran Sungai Bengawan Solo dan Kubah Sangiran. Berbekal kuas, palu geologi, dan catatan jurnal, tugasmu adalah menganalisis temuan fosil dan artefak untuk merekonstruksi bagaimana leluhur nusantara bertahan hidup."</p>
+            
+            <div class="pt-8 space-y-4 max-w-sm mx-auto">
+                <div class="text-left">
+                    <label class="block text-sm font-bold text-yellow-900 mb-1">Identitas Peneliti:</label>
+                    <input type="text" id="input-name" placeholder="Nama Lengkap..." class="w-full p-3 border-b-2 border-yellow-800 bg-transparent focus:outline-none placeholder-gray-400 italic mb-3">
+                    <input type="text" id="input-class" placeholder="Kelas (Contoh: X.1)..." class="w-full p-3 border-b-2 border-yellow-800 bg-transparent focus:outline-none placeholder-gray-400 italic">
+                </div>
+                <button onclick="startGame()" class="btn-vintage w-full py-3 px-6 rounded shadow-md font-bold tracking-wide mt-4">
+                    MULAI EKPEDISI
+                </button>
+                <button onclick="showPinPrompt()" class="text-xs text-yellow-700 underline mt-4 hover:text-yellow-900">Akses Jurnal Guru</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LAYAR PERMAINAN -->
+    <div id="screen-game" class="journal-container w-full max-w-3xl rounded-sm p-6 md:p-10 hidden relative">
+        <div class="flex justify-between items-end border-b border-yellow-800 pb-4 mb-6">
+            <div>
+                <p class="text-xs tracking-widest text-yellow-700 font-bold uppercase mb-1" id="pos-counter">POS 1 / 15</p>
+                <h2 class="text-2xl md:text-3xl font-bold text-yellow-900" id="pos-title">Judul Pos</h2>
+            </div>
+            <div class="text-right border border-yellow-700 p-2 rounded text-sm bg-yellow-50 opacity-80">
+                <p class="text-[10px] uppercase tracking-wider text-gray-500">
